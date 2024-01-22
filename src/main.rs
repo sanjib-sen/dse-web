@@ -9,9 +9,10 @@ fn main() {
 }
 
 fn app(cx: Scope) -> Element {
+    // Using use_future to create a future that will be executed on the server
     let mut count = use_future(cx, (), |_| async {
         match get_server_data().await {
-            Ok(data) => data*2.0,
+            Ok(data) => data,
             Err(_) => -1.0,
         }
     });
@@ -30,6 +31,7 @@ fn app(cx: Scope) -> Element {
         None => "Loading...".to_string(),
     };
     
+
     cx.render(rsx! {
         main{
             class:"min-h-screen bg-black flex flex-col",
