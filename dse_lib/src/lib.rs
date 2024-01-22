@@ -4,7 +4,7 @@ struct Stock {
     trading_price: Option<f32>,
 }
 
-pub(crate) async fn get_data() -> Result<f32, reqwest::Error> {
+pub async fn get_stock() -> Result<f32, reqwest::Error> {
     let stock_name = "ARAMIT".to_string();
     let mut stock = Stock {
         name: stock_name.clone(),
@@ -16,8 +16,7 @@ pub(crate) async fn get_data() -> Result<f32, reqwest::Error> {
         println!("No CLI URL provided, using default.");
         format!("https://dsebd.org/displayCompany.php?name={}", stock.name).into()
     };
-    let res = reqwest::get(url).await?;
-    let body = res.text().await?;
+    let body = reqwest::get(url).await?.text().await?;
     let document = Html::parse_document(&body);
     let selector = Selector::parse("#company > tbody > tr:nth-child(1) > td:nth-child(2)").unwrap();
     let element_of_trading_price = document.select(&selector).nth(0);

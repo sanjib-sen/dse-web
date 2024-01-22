@@ -817,11 +817,20 @@ version = "0.1.0"
 dependencies = [
  "dioxus",
  "dioxus-fullstack",
+ "dse_lib",
  "getrandom",
  "reqwest",
  "scraper",
  "serde",
  "tokio",
+]
+
+[[package]]
+name = "dse_lib"
+version = "0.1.0"
+dependencies = [
+ "reqwest",
+ "scraper",
 ]
 
 [[package]]

@@ -2,8 +2,7 @@
 
 use dioxus::{html::div, prelude::*};
 use dioxus_fullstack::prelude::*;
-mod get;
-use get::get_data;
+use dse_lib::get_stock;
 
 fn main() {
     LaunchBuilder::new(app).launch();
@@ -40,5 +39,5 @@ fn app(cx: Scope) -> Element {
 
 #[server]
 async fn get_server_data() -> Result<f32, ServerFnError> {
-    Ok(get_data().await?)
+    Ok(get_stock().await?)
 }
