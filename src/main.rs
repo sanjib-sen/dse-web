@@ -9,12 +9,27 @@ fn main() {
 }
 
 fn app(cx: Scope) -> Element {
-    let mut count = use_server_future(cx, (), |_| async {
+    let mut count = use_future(cx, (), |_| async {
         match get_server_data().await {
-            Ok(price) => price,
+            Ok(data) => data*2.0,
             Err(_) => -1.0,
         }
-    })?;
+    });
+    let mut result = match count.value() {
+        Some(data) => {
+            if data == &0.0 {
+                "Loading...".to_string()
+            }
+            else if data == &-1.0{
+                "Error".to_string()
+            }
+             else {
+                format!("{} Taka", data)
+            }
+        }
+        None => "Loading...".to_string(),
+    };
+    
     cx.render(rsx! {
         main{
             class:"min-h-screen bg-black flex flex-col",
@@ -22,13 +37,16 @@ fn app(cx: Scope) -> Element {
                 class: "justify-center content-center text-white",
                 "Here are some data:"
                         rsx!{
-                            "{count.value():?}"
+                            {result}
                         }
             }
             button {
                 class: "text-white border-t-neutral-50 w-5 h-3 p-5 bg-red-600",
-                onclick: move |_| {
+                onclick: move |_|{
                     // changing the count will cause the component to re-render
+                    // set count to 0
+                    count.set(0.0);
+                    // restart the future
                     count.restart()
                 },
                 "Refresh"
