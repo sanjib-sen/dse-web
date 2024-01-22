@@ -39,5 +39,5 @@ fn app(cx: Scope) -> Element {
 
 #[server]
 async fn get_server_data() -> Result<f32, ServerFnError> {
-    Ok(get_stock().await?)
+    Ok(get_stock("ARAMIT").await?)
 }
