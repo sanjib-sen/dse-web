@@ -1,6 +1,6 @@
 FROM node:alpine as css_builder
 WORKDIR /app
-COPY input.css .
+COPY . .
 RUN npx tailwindcss -i ./input.css -o ./public/tailwind.css
 
 FROM rust:latest as frontend_builder
@@ -8,7 +8,7 @@ WORKDIR /app
 RUN cargo install dioxus-cli
 RUN rustup target add wasm32-unknown-unknown
 COPY . .
-COPY --from=css_builder /app/public/tailwind.css ./public/tailwind.css
+COPY --from=css_builder /app/public ./public
 RUN dx build --features web --release
 
 FROM rust:alpine AS backend_builder

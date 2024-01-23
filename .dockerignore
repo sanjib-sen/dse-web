@@ -5,3 +5,5 @@ dist
 .git
 dse_lib/target
 public
+*.sh
+*.md
