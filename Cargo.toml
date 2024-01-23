@@ -10,7 +10,7 @@ dse_lib = { path = "./dse_lib"}
 getrandom = {version = "0.2.10", features = ["js"] }
 dioxus = "0.4.3"
 dioxus-fullstack = "0.4.3"
-reqwest = "0.11.23"
+reqwest = { version = "0.11.23", features = ["native-tls-vendored"] }
 scraper = "0.18.1"
 serde = "1.0.193"
 tokio = "1.35.1"

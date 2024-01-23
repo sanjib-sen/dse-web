@@ -4,6 +4,14 @@ use dioxus::{html::div, prelude::*};
 use dioxus_fullstack::prelude::*;
 use dse_lib::get_stock;
 
+#[cfg(feature = "ssr")]
+fn main() {
+    LaunchBuilder::new(app)
+        .addr(std::net::SocketAddrV4::new(std::net::Ipv4Addr::new(0, 0, 0, 0), 8080))
+        .launch();
+}
+
+#[cfg(not(feature = "ssr"))]
 fn main() {
     LaunchBuilder::new(app).launch();
 }
