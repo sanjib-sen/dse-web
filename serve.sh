@@ -1,2 +1,3 @@
-dx build --features web
-dx serve --features ssr --hot-reload --platform desktop
+npx tailwindcss -i ./input.css -o ./public/tailwind.css
+dx build --features web --release
+cargo run --features ssr --release
