@@ -7,7 +7,7 @@ use dse_lib::get_stock;
 #[cfg(feature = "ssr")]
 fn main() {
     LaunchBuilder::new(app)
-        .addr(std::net::SocketAddrV4::new(std::net::Ipv4Addr::new(0, 0, 0, 0), 8080))
+        .addr(std::net::SocketAddrV4::new(std::net::Ipv4Addr::new(0, 0, 0, 0), std::env::var("PORT").unwrap_or("80".to_string()).parse::<u16>().unwrap_or(3000)))
         .launch();
 }
 
