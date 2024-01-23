@@ -7,7 +7,7 @@ use dse_lib::get_stock;
 #[cfg(feature = "ssr")]
 fn main() {
     LaunchBuilder::new(app)
-        .addr(std::net::SocketAddrV4::new(std::net::Ipv4Addr::new(0, 0, 0, 0), std::env::var("PORT").unwrap_or("80".to_string()).parse::<u16>().unwrap_or(3000)))
+        .addr(std::net::SocketAddrV4::new(std::net::Ipv4Addr::new(0, 0, 0, 0), std::env::var("PORT").unwrap_or("8080".to_string()).parse::<u16>().unwrap()))
         .launch();
 }
 
@@ -51,6 +51,7 @@ fn app(cx: Scope) -> Element {
                         }
             }
             button {
+                disabled: count.value() == Some(&0.0),
                 class: "text-white border-t-neutral-50 w-5 h-3 p-5 bg-red-600",
                 onclick: move |_|{
                     // changing the count will cause the component to re-render
